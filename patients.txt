@@ -1,2 +1,0 @@
-ID: 23 | Name: Sahil | Age: 18 | Gender: M | Symptoms: Fever
-ID: 23 | Name: Sahil | Age: 23 | Gender: m | Symptoms: headache
