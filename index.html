@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hospital Patient Management</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🏥 Hospital Patient Management</h1>
+    <form id="patientForm">
+      <input type="number" id="id" placeholder="Patient ID" required />
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="number" id="age" placeholder="Age" required />
+      <select id="gender" required>
+        <option value="">Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+      <textarea id="symptoms" placeholder="Symptoms" required></textarea>
+      <button type="submit">Add Patient</button>
+    </form>
+
+    <div class="actions">
+      <button onclick="servePatient()">Serve Next</button>
+      <button onclick="displayQueue()">Display Queue</button>
+      <button onclick="countPatients()">Count Patients</button>
+      <button onclick="checkFull()">Check if Queue is Full</button>
+      <button onclick="checkEmpty()">Check if Queue is Empty</button>
+      <button onclick="searchPatient()">Find Patient by ID</button>
+      <button onclick="showHistory()">Show Patient History</button>
+      <button onclick="deleteFromHistory()">Delete from History</button>
+    </div>
+
+    <div id="output"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
