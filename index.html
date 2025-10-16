@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Hospital Patient Management</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>🏥 Hospital Patient Management</h1>
-    <form id="patientForm">
-      <input type="number" id="id" placeholder="Patient ID" required />
-      <input type="text" id="name" placeholder="Name" required />
-      <input type="number" id="age" placeholder="Age" required />
-      <select id="gender" required>
-        <option value="">Gender</option>
-        <option>Male</option>
-        <option>Female</option>
-        <option>Other</option>
-      </select>
-      <textarea id="symptoms" placeholder="Symptoms" required></textarea>
-      <button type="submit">Add Patient</button>
-    </form>
+  <h1>🏥 Hospital Patient Management</h1>
 
-    <div class="actions">
-      <button onclick="servePatient()">Serve Next</button>
-      <button onclick="displayQueue()">Display Queue</button>
-      <button onclick="countPatients()">Count Patients</button>
-      <button onclick="checkFull()">Check if Queue is Full</button>
-      <button onclick="checkEmpty()">Check if Queue is Empty</button>
-      <button onclick="searchPatient()">Find Patient by ID</button>
-      <button onclick="showHistory()">Show Patient History</button>
-      <button onclick="deleteFromHistory()">Delete from History</button>
-    </div>
-
-    <div id="output"></div>
+  <div class="form-section">
+    <input type="number" id="id" placeholder="Patient ID">
+    <input type="text" id="name" placeholder="Name">
+    <input type="number" id="age" placeholder="Age">
+    <select id="gender">
+      <option value="">Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+    <textarea id="symptoms" placeholder="Symptoms"></textarea>
+    <button onclick="addPatient()">Add Patient</button>
   </div>
+
+  <div class="button-group">
+    <h3>Patient Actions</h3>
+    <button onclick="servePatient()">See serving patient</button>
+    <button onclick="deleteFromHistory()">Delete from History</button>
+  </div>
+
+  <div class="button-group">
+    <h3>Queue Operations</h3>
+    <button onclick="displayQueue()">Display Patients</button>
+    <button onclick="countPatients()">Count Patients</button>
+    <button onclick="checkAvailability()">Availability of Slots</button>
+  </div>
+
+  <div class="button-group">
+    <h3>Search & History</h3>
+    <button onclick="searchPatient()">Find Patient by ID</button>
+    <button onclick="showHistory()">Show Patient History</button>
+  </div>
+
+  <pre id="output"></pre>
+
   <script src="script.js"></script>
 </body>
 </html>
