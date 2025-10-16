@@ -1,81 +1,42 @@
-const queue = [];
-const history = [];
-const MAX = 100;
+let queue = [];
+let history = [];
+const MAX_SIZE = 100;
 
-document.getElementById("patientForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  if (queue.length >= MAX) {
-    showOutput("Queue is full! Cannot add new patient.");
+function showOutput(message) {
+  document.getElementById("output").textContent = message;
+}
+
+function addPatient() {
+  const id = parseInt(document.getElementById("id").value);
+  const name = document.getElementById("name").value;
+  const age = parseInt(document.getElementById("age").value);
+  const gender = document.getElementById("gender").value;
+  const symptoms = document.getElementById("symptoms").value;
+
+  if (!id || !name || !age || !gender || !symptoms) {
+    showOutput("⚠️ Please fill all fields.");
     return;
   }
 
-  const patient = {
-    id: parseInt(document.getElementById("id").value),
-    name: document.getElementById("name").value,
-    age: parseInt(document.getElementById("age").value),
-    gender: document.getElementById("gender").value,
-    symptoms: document.getElementById("symptoms").value
-  };
+  if (queue.length >= MAX_SIZE) {
+    showOutput("❌ Cannot add patient. Queue is full.");
+    return;
+  }
 
+  const patient = { id, name, age, gender, symptoms };
   queue.push(patient);
-  showOutput(` Patient ${patient.name} added successfully!`);
-  this.reset();
-});
+  history.push(patient);
+  showOutput(`✅ Patient ${name} added to queue.`);
+}
 
 function servePatient() {
   if (queue.length === 0) {
-    showOutput(" No patients in queue.");
+    showOutput("📭 No patients are there.");
     return;
   }
-  const patient = queue.shift();
-  history.push(patient);
-  showOutput(`🩺 Serving Patient:\nID: ${patient.id} | Name: ${patient.name} | Age: ${patient.age} | Gender: ${patient.gender} | Symptoms: ${patient.symptoms}`);
-}
 
-function displayQueue() {
-  if (queue.length === 0) {
-    showOutput(" No patients are waiting in the queue.");
-    return;
-  }
-  let output = " Patients Waiting in Queue:\n";
-  queue.forEach(p => {
-    output += `ID: ${p.id} | Name: ${p.name} | Age: ${p.age} | Gender: ${p.gender} | Symptoms: ${p.symptoms}\n`;
-  });
-  showOutput(output);
-}
-
-function countPatients() {
-  showOutput(`Total patients in queue: ${queue.length}`);
-}
-
-function checkFull() {
-  showOutput(`Queue is ${queue.length >= MAX ? "Full" : "Not Full"}`);
-}
-
-function checkEmpty() {
-  showOutput(`Queue is ${queue.length === 0 ? "Empty" : "Not Empty"}`);
-}
-
-function searchPatient() {
-  const id = prompt("Enter Patient ID to search:");
-  const patient = queue.find(p => p.id === parseInt(id));
-  if (patient) {
-    showOutput(`✅ Patient Found:\nID: ${patient.id} | Name: ${patient.name} | Age: ${patient.age} | Gender: ${patient.gender} | Symptoms: ${patient.symptoms}`);
-  } else {
-    showOutput(`❌ No patient with ID ${id} found in queue.`);
-  }
-}
-
-function showHistory() {
-  if (history.length === 0) {
-    showOutput(" No patient history available.");
-    return;
-  }
-  let output = " Patient History:\n";
-  history.forEach(p => {
-    output += `ID: ${p.id} | Name: ${p.name} | Age: ${p.age} | Gender: ${p.gender} | Symptoms: ${p.symptoms}\n`;
-  });
-  showOutput(output);
+  const served = queue.shift();
+  showOutput(`🩺 Serving Patient: ${served.name} (ID: ${served.id})`);
 }
 
 function deleteFromHistory() {
@@ -89,6 +50,51 @@ function deleteFromHistory() {
   }
 }
 
-function showOutput(message) {
-  document.getElementById("output").innerText = message;
+function displayQueue() {
+  if (queue.length === 0) {
+    showOutput("📭 Queue is empty.");
+    return;
+  }
+
+  let output = "🧾 Current Queue:\n";
+  queue.forEach(p => {
+    output += `ID: ${p.id}, Name: ${p.name}, Age: ${p.age}, Gender: ${p.gender}, Symptoms: ${p.symptoms}\n`;
+  });
+  showOutput(output);
+}
+
+function countPatients() {
+  showOutput(`🔢 Total patients in queue: ${queue.length}`);
+}
+
+function checkAvailability() {
+  if (queue.length >= MAX_SIZE) {
+    showOutput("❌ No slots available. The queue is full.");
+  } else {
+    showOutput("✅ Slots are available");
+  }
+}
+
+function searchPatient() {
+  const id = prompt("Enter Patient ID to search:");
+  const patient = queue.find(p => p.id === parseInt(id));
+  if (patient) {
+    showOutput(`🔍 Found: ${patient.name}, Age: ${patient.age}, Gender: ${patient.gender}, Symptoms: ${patient.symptoms}`);
+  } else {
+    showOutput(`❌ No patient with ID ${id} found in queue.`);
+  }
+}
+
+function showHistory() {
+  if (history.length === 0) {
+    showOutput("📭 No patient history available.");
+    return;
+  }
+
+  let output = "📜 Patient History:\n";
+  history.forEach(p => {
+    output += `ID: ${p.id}, Name: ${p.name}, Age: ${p.age}, Gender: ${p.gender}, Symptoms: ${p.symptoms}\n`;
+  });
+
+  showOutput(output);
 }
